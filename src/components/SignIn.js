@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-import TokenContext from "../context/tokenContext";
+import TokenContext from "../context/TokenContext";
+import UserContext from "../context/UserContext";
 import Logo from "./../assets/logo.png";
 import Loading from "./Loading";
 
@@ -11,23 +12,35 @@ export default function SignIn() {
   const [infosLogin, setinfosLogin] = useState({ email: "", password: "" });
   const [buttonState, setButtonState] = useState(false);
   const [buttonLoading, setButtonLoading] = useState("Entrar");
-  const { setToken } = useContext(TokenContext);
+  const { token, setToken } = useContext(TokenContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   async function post(event) {
     event.preventDefault();
     setButtonState(true);
     setButtonLoading(<Loading />);
-    const URL = process.env.REACT_APP_API_URL + "/sign-in";
+    const URL = process.env.REACT_APP_API_URL + "/signIn";
     try {
-      const response = await axios.post(URL, infosLogin);
-      const { data } = response;
-      console.log("token: ", response);
+      const { data } = await axios.post(URL, infosLogin);
+      console.log("data: ", data);
+
       setToken(data.token);
-
+      setUser({ ...user, name: data.name, email: data.email });
+      const stringifyUser = JSON.stringify({
+        name: data.name,
+        email: data.email,
+      });
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", stringifyUser);
 
-      navigate("/wallet");
+      navigate("/");
     } catch (err) {
       console.log(err.response);
       setButtonState(false);
@@ -39,6 +52,9 @@ export default function SignIn() {
   const { email, password } = infosLogin;
   return (
     <Conteiner>
+      <Link to={"/"}>
+        <ion-icon name="arrow-undo-outline"></ion-icon>
+      </Link>
       <img src={Logo} alt="Logo" />
       <Form onSubmit={post}>
         <input
@@ -64,7 +80,7 @@ export default function SignIn() {
           {buttonLoading}
         </button>
       </Form>
-      <Link to={"/sign-up"}>
+      <Link to={"/signUp"}>
         <ButtonRegisterLogin disabled={buttonState}>
           <p>Não tem uma conta? Cadastre-se!</p>
         </ButtonRegisterLogin>
@@ -80,6 +96,15 @@ const Conteiner = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  ion-icon {
+    position: absolute;
+    top: 10;
+    left: 15;
+    font-size: 35px;
+    color: #ff8d3e;
+    filter: drop-shadow(1px 2px 1px #4c2a12);
+  }
 
   p {
     font-size: 20px;

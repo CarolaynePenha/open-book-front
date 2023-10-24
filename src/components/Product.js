@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Product({ image, title, price, id }) {
-  console.log("id: ", id);
   const navigate = useNavigate();
   function navigateToProduct() {
     navigate(`/productinfos/${id}`);
@@ -38,8 +37,9 @@ const Section = styled.section`
     align-items: center;
     background-color: #c8b8af;
     img {
-      width: 80%;
+      width: 75%;
       height: auto;
+      margin: 10px 0px;
     }
   }
   .infos {

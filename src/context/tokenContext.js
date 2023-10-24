@@ -4,7 +4,7 @@ import { useState } from "react";
 const TokenContext = createContext();
 
 export function TokenProvider({ children }) {
-  let initialToken = "";
+  let initialToken = null;
   const userToken = localStorage.getItem("token");
   if (userToken) {
     initialToken = userToken;
