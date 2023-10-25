@@ -167,14 +167,16 @@ const Article = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 10%;
+  margin: 6% 0%;
+
   p {
     padding: 10px 0px;
   }
 
   h1 {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 500;
+    padding-left: 20px;
   }
   .title {
     width: 100%;
@@ -187,8 +189,8 @@ const Article = styled.article`
   section {
     width: 100%;
     display: flex;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
     border-bottom: solid 1px #95857c;
     img {
       width: 25%;
@@ -241,6 +243,98 @@ const Article = styled.article`
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+  }
+  @media (min-width: 600px) {
+    .title {
+      padding-bottom: 5%;
+    }
+    h1 {
+      font-size: 28px;
+    }
+    section {
+      img {
+        width: 20%;
+        margin-right: 10%;
+      }
+      p {
+        font-size: 24px;
+      }
+      span {
+        font-size: 25px;
+      }
+      label {
+        font-size: 24px;
+      }
+      .quantity {
+        padding-top: 10%;
+        select {
+          font-size: 20px;
+          height: 40px;
+          width: 50px;
+        }
+        button {
+          width: 150px;
+          height: 40px;
+          font-size: 16px;
+        }
+      }
+    }
+    .total {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-size: 25px;
+      }
+      button {
+        width: 250px;
+        height: 70px;
+        font-size: 24px;
+      }
+    }
+  }
+  @media (min-width: 1100px) {
+    h1 {
+      font-size: 32px;
+    }
+    section {
+      img {
+        width: 15%;
+        margin-right: 10%;
+      }
+      p {
+        font-size: 28px;
+      }
+      span {
+        font-size: 28px;
+      }
+      label {
+        font-size: 28px;
+      }
+      .quantity {
+        select {
+          font-size: 24px;
+          height: 45px;
+          width: 60px;
+        }
+        button {
+          width: 150px;
+          height: 50px;
+          font-size: 18px;
+        }
+      }
+    }
+    .total {
+      p {
+        font-size: 28px;
+      }
+      button {
+        width: 350px;
+        height: 70px;
+        font-size: 28px;
+      }
     }
   }
 `;

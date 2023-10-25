@@ -26,22 +26,24 @@ export default function Home() {
   return productsList == null ? (
     <LoadingRing />
   ) : (
-    <Conteiner>
-      <Header />
-      {productsList.map((product, index) => {
-        const { image, title, price, _id } = product;
-        titleArr.push(title);
-        return (
-          <Product
-            key={index}
-            image={image}
-            title={title}
-            price={price}
-            id={_id}
-          />
-        );
-      })}
-    </Conteiner>
+    <>
+      <Header setProductsList={setProductsList} />
+      <Conteiner>
+        {productsList.map((product, index) => {
+          const { image, title, price, _id } = product;
+          titleArr.push(title);
+          return (
+            <Product
+              key={index}
+              image={image}
+              title={title}
+              price={price}
+              id={_id}
+            />
+          );
+        })}
+      </Conteiner>
+    </>
   );
 }
 
@@ -51,4 +53,16 @@ const Conteiner = styled.div`
   width: 100%;
   min-height: 100vh;
   height: fit-content;
+  padding: 10% 0%;
+
+  @media (min-width: 600px) {
+    min-height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    align-items: center;
+  }
+  @media (min-width: 1200px) {
+    justify-content: space-evenly;
+  }
 `;

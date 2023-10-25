@@ -120,4 +120,37 @@ const Article = styled.article`
       }
     }
   }
+  @media (min-width: 600px) {
+    h1 {
+      font-size: 26px;
+    }
+    img {
+      width: 25%;
+    }
+    p {
+      font-size: 22px;
+    }
+  }
+  @media (min-width: 600px) {
+    h1 {
+      font-size: 26px;
+    }
+    img {
+      width: 25%;
+    }
+    p {
+      font-size: 22px;
+    }
+  }
+  @media (min-width: 1200px) {
+    h1 {
+      font-size: 30px;
+    }
+    img {
+      width: 15%;
+    }
+    p {
+      font-size: 26px;
+    }
+  }
 `;

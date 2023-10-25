@@ -22,7 +22,7 @@ export default function Address() {
     neighborhood: "",
     city: "",
     cep: "",
-    state: "",
+    state: "AC",
     cpf: "",
   });
   const stateArr = [
@@ -126,7 +126,7 @@ export default function Address() {
               required
               placeholder="Cidade"
               maxlength="30"
-              minLength="5"
+              minLength="4"
               value={city}
               onChange={(e) =>
                 setOrderInfos({ ...orderInfos, city: e.target.value })
@@ -138,6 +138,7 @@ export default function Address() {
               onChange={(e) => {
                 setOrderInfos({ ...orderInfos, state: e.target.value });
               }}
+              onClick={() => window.scrollTo(0, 500)}
             >
               {stateArr.map((value, index) => {
                 return (
@@ -222,11 +223,28 @@ const Conteiner = styled.div`
       border-width: 0px;
       option {
         border: none;
+        height: 20px;
       }
     }
   }
   p {
     font-size: 20px;
     padding-top: 10px;
+  }
+  @media (min-width: 600px) {
+    .city-state {
+      select {
+        height: 70px;
+        font-size: 24px;
+      }
+    }
+  }
+  @media (min-width: 1500px) {
+    .city-state {
+      select {
+        height: 85px;
+        font-size: 26px;
+      }
+    }
   }
 `;

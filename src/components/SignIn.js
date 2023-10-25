@@ -105,10 +105,6 @@ const Conteiner = styled.div`
     color: #ff8d3e;
     filter: drop-shadow(1px 2px 1px #4c2a12);
   }
-
-  p {
-    font-size: 20px;
-  }
   img {
     width: 300px;
   }
@@ -120,8 +116,18 @@ export const ButtonRegisterLogin = styled.button`
   margin-top: 30px;
   background-color: transparent;
   p {
-    font-size: 16px;
+    font-size: 18px;
     filter: drop-shadow(1px 2px 1px #000000);
+  }
+  @media (min-width: 600px) {
+    p {
+      font-size: 22px;
+    }
+  }
+  @media (min-width: 1500px) {
+    p {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -149,5 +155,25 @@ export const Form = styled.form`
     background-color: #ffffff;
     font-size: 18px;
     text-align: center;
+  }
+  @media (min-width: 600px) {
+    input {
+      height: 70px;
+      font-size: 22px;
+    }
+    .save-button {
+      height: 70px;
+      font-size: 22px;
+    }
+  }
+  @media (min-width: 1500px) {
+    input {
+      height: 85px;
+      font-size: 26px;
+    }
+    .save-button {
+      height: 85px;
+      font-size: 26px;
+    }
   }
 `;

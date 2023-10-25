@@ -78,12 +78,15 @@ export default function Productinfos() {
         <>
           <Header changeHeader={changeHeader} />
           <Section>
-            <p>{title}</p>
-            <img src={image} alt="book" />
-            <div className="price">
-              <p>Capa comun</p>
-              <span>R${price}</span>
+            <div className="img">
+              <p>{title}</p>
+              <img src={image} alt="book" />
+              <div className="price">
+                <p>Capa comun</p>
+                <span>R${price}</span>
+              </div>
             </div>
+
             <div className="infos">
               <p className="category">Categoria: {category}</p>
               <p className="seller">Vendedor: {seller}</p>{" "}
@@ -135,43 +138,49 @@ const Section = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  p {
-    font-family: "Young Serif", serif;
-    width: 90%;
-    font-size: 26px;
-    margin: 5% 0%;
-  }
-  img {
-    width: 60%;
-    margin-bottom: 30px;
-  }
-  .price {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    border: solid 2px #ff8d3e;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(180deg, #fff3eb, #ffd1b1, #ffaf77);
-    span {
-      font-size: 26px;
-      padding-bottom: 20px;
+  .img {
+    width: 50%;
+    margin-left: 20px;
+    img {
+      width: 80%;
+      margin-bottom: 30px;
     }
     p {
-      width: fit-content;
-      font-family: "Roboto", sans-serif;
-      font-size: 24px;
-      font-weight: 500;
-      margin-top: 20px;
-      margin-bottom: 10px;
+      font-family: "Young Serif", serif;
+      width: 90%;
+      font-size: 26px;
+      margin: 5% 0%;
+    }
+    .price {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      border: solid 2px #ff8d3e;
+      justify-content: center;
+      align-items: center;
+      background-image: linear-gradient(180deg, #fff3eb, #ffd1b1, #ffaf77);
+      span {
+        font-size: 26px;
+        padding-bottom: 20px;
+      }
+      p {
+        width: fit-content;
+        font-family: "Roboto", sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
     }
   }
+
   .infos {
     width: 90%;
+    margin: 20px 0px;
     p {
       font-family: "Roboto", sans-serif;
-      font-size: 20px;
+      font-size: 21px;
+      line-height: 28px;
     }
     button {
       width: 100%;
@@ -181,7 +190,7 @@ const Section = styled.section`
       border: none;
       background-color: #ff8d3e;
       color: #ffffff;
-      font-size: 20px;
+      font-size: 21px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -196,7 +205,7 @@ const Section = styled.section`
     height: fit-content;
     align-items: center;
     label {
-      font-size: 20px;
+      font-size: 21px;
       margin-right: 10px;
     }
     select {
@@ -205,6 +214,62 @@ const Section = styled.section`
       background-color: #fff3eb;
       border: none;
       font-size: 20px;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .img {
+      p {
+        width: 90%;
+        font-size: 30px;
+        margin: 5% 0%;
+      }
+      img {
+        width: 80%;
+        margin-bottom: 30px;
+      }
+      .price {
+        width: 80%;
+      }
+    }
+  }
+  @media (min-width: 800px) {
+    flex-direction: row;
+    .img img {
+      width: 70%;
+      margin-bottom: 30px;
+    }
+    .img {
+      .price {
+        width: 70%;
+      }
+    }
+  }
+  @media (min-width: 1200px) {
+    .img {
+      width: 20%;
+      margin-left: 10%;
+      p {
+        font-size: 35px;
+      }
+      img {
+        width: 90%;
+        margin-bottom: 30px;
+      }
+      .price {
+        width: 90%;
+      }
+    }
+    .infos {
+      width: 50%;
+      p {
+        font-size: 25px;
+      }
+      .ordered-quantity {
+        label {
+          font-size: 25px;
+        }
+      }
     }
   }
 `;

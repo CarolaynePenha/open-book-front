@@ -7,11 +7,13 @@ import LogoPequena from "../assets/logoPequena.png";
 import UserContext from "../context/UserContext";
 import axios from "axios";
 
-export default function Header({ changeHeader }) {
+export default function Header({ changeHeader, setProductsList }) {
   const { token, setToken } = useContext(TokenContext);
   const [visibility, setVisibility] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const [trolleyLength, setTrolleyLength] = useState(0);
+  const [srcBar, setSrcBar] = useState("");
+  const [inputState, setInputState] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,7 +47,19 @@ export default function Header({ changeHeader }) {
       navigate("/signIn");
     }
   }, [token, changeHeader]);
-  console.log("token: ", token);
+
+  async function search() {
+    const URL = process.env.REACT_APP_API_URL + `/products/${srcBar}`;
+    setInputState(true);
+    try {
+      const { data } = await axios.get(URL);
+      setProductsList(data);
+      setInputState(false);
+    } catch (err) {
+      console.log(err.response);
+      setInputState(true);
+    }
+  }
 
   return token !== null ? (
     <DivHeader>
@@ -58,9 +72,18 @@ export default function Header({ changeHeader }) {
         <p onClick={() => logOut()}> Sair da conta</p>
       </Menu>
       <div className="header-top">
-        <Link className="logo" to={"/"}>
-          <img src={LogoPequena} alt="Logo" />
-        </Link>
+        <div className="header-top-left">
+          <ion-icon
+            onClick={() => {
+              navigate(-1);
+            }}
+            name="arrow-back-outline"
+          ></ion-icon>
+          <Link className="logo" to={"/"}>
+            <img src={LogoPequena} alt="Logo" />
+          </Link>
+        </div>
+
         <button onClick={() => setVisibility(!visibility)}>
           <p>Olá,{user.name} </p> <p>Sua conta</p>
           <ion-icon name="chevron-down-outline"></ion-icon>
@@ -73,7 +96,13 @@ export default function Header({ changeHeader }) {
         </div>
       </div>
       <div className="header-middle">
-        <input placeholder="Pesquisa" />
+        <input
+          placeholder="Pesquisa"
+          disabled={inputState}
+          value={srcBar}
+          onChange={(e) => setSrcBar(e.target.value)}
+        />
+        <ion-icon onClick={() => search()} name="search-outline"></ion-icon>
       </div>
       <div className="header-bottom">
         <button>Fantasia</button>
@@ -138,6 +167,21 @@ const DivHeader = styled.header`
     align-items: center;
     justify-content: space-between;
     margin: 0% 10%;
+    .header-top-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 45%;
+      ion-icon {
+        font-size: 30px;
+      }
+      .logo {
+        width: 70%;
+        img {
+          width: 100%;
+        }
+      }
+    }
     .trolley {
       display: flex;
       flex-direction: column;
@@ -153,12 +197,7 @@ const DivHeader = styled.header`
         color: black;
       }
     }
-    .logo {
-      width: 30%;
-      img {
-        width: 100%;
-      }
-    }
+
     button {
       background-color: transparent;
       width: fit-content;
@@ -187,10 +226,19 @@ const DivHeader = styled.header`
     align-items: center;
     margin: 0% 10%;
     input {
-      width: 80%;
+      width: 70%;
       height: 50px;
       margin-bottom: 20px;
       font-size: 18px;
+      border: solid 1px #4a423e;
+    }
+    ion-icon {
+      width: 10%;
+      height: 48px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      background-color: #ff8d3e;
+      border: solid 1px #4a423e;
     }
   }
   .header-bottom {
@@ -206,6 +254,81 @@ const DivHeader = styled.header`
       font-size: 16px;
       font-weight: 600;
       filter: drop-shadow(1px 6px 3px #ff8d3e);
+    }
+  }
+
+  @media (min-width: 600px) {
+    .header-top {
+      .header-top-left {
+        width: 30%;
+        .logo {
+          width: 70%;
+          img {
+            width: 100%;
+          }
+        }
+      }
+      button p {
+        font-size: 17px;
+      }
+      .trolley {
+        p {
+          font-size: 25px;
+          color: #e57e37;
+        }
+        ion-icon {
+          font-size: 40px;
+          color: black;
+        }
+      }
+    }
+  }
+  @media (min-width: 1200px) {
+    .header-top {
+      .header-top-left {
+        width: 20%;
+        .logo {
+          width: 70%;
+          img {
+            width: 100%;
+          }
+        }
+      }
+      button p {
+        font-size: 20px;
+      }
+      .trolley {
+        p {
+          font-size: 25px;
+          color: #e57e37;
+        }
+        ion-icon {
+          font-size: 40px;
+          color: black;
+        }
+      }
+    }
+    .header-middle {
+      input {
+        width: 70%;
+        height: 65px;
+        margin-bottom: 20px;
+        font-size: 22px;
+        border: solid 1px #4a423e;
+      }
+      ion-icon {
+        width: 10%;
+        height: 63px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        background-color: #ff8d3e;
+        border: solid 1px #4a423e;
+      }
+    }
+    .header-bottom {
+      button {
+        font-size: 20px;
+      }
     }
   }
 `;
@@ -234,5 +357,9 @@ const Menu = styled.menu`
     padding-left: 20px;
     padding-top: 30px;
     font-weight: 500;
+  }
+
+  @media (min-width: 600px) {
+    font-size: 22px;
   }
 `;

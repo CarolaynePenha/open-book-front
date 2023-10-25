@@ -109,7 +109,7 @@ export default function SignUp() {
       </Form>
       <Link to={"/"}>
         <ButtonRegisterLogin disabled={buttonState}>
-          Já tem uma conta? Faça login!
+          <p>Já tem uma conta? Faça login!</p>
         </ButtonRegisterLogin>
       </Link>
     </Conteiner>
@@ -124,9 +124,6 @@ const Conteiner = styled.div`
   align-items: center;
   justify-content: center;
 
-  p {
-    font-size: 20px;
-  }
   img {
     width: 300px;
   }

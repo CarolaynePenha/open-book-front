@@ -5,7 +5,7 @@ import TokenContext from "../context/TokenContext";
 import OrderContext from "../context/OrderContext";
 import styled from "styled-components";
 import Loading from "./Loading";
-import { Form } from "./SignIn";
+
 import Header from "./Header";
 
 export default function Payment() {
@@ -38,7 +38,7 @@ export default function Payment() {
     <>
       <Header />
       <Conteiner>
-        <Form onSubmit={saveData}>
+        <form className="form" onSubmit={saveData}>
           <div className="payment-options">
             <input
               disabled={buttonState}
@@ -72,11 +72,10 @@ export default function Payment() {
             />
             <label>Boleto</label>
           </div>
-
           <button disabled={buttonState} type="submit" className="save-button">
-            {buttonLoading}
+            <p>{buttonLoading}</p>
           </button>
-        </Form>
+        </form>
       </Conteiner>
     </>
   );
@@ -100,16 +99,56 @@ const Conteiner = styled.div`
     margin: 0px;
     margin-right: 10px;
   }
-
-  p {
+  label {
     font-size: 20px;
-    padding-top: 10px;
+  }
+  .form {
+    width: 70%;
+    button {
+      width: 100%;
+      height: 50px;
+      border-radius: 5px;
+      margin-top: 20px;
+      border: none;
+      background-color: #ff8d3e;
+      color: #ffffff;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .payment-options {
+    height: 80px;
     display: flex;
     align-items: center;
     background-color: #fff3eb;
     padding: 10%;
     border: solid 1px #ff9851;
+  }
+  @media (min-width: 600px) {
+    label {
+      font-size: 22px;
+    }
+    .form {
+      button {
+        height: 70px;
+      }
+    }
+  }
+  @media (min-width: 1200px) {
+    label {
+      font-size: 26px;
+    }
+    input {
+      width: 35px;
+      height: 35px;
+    }
+    .form {
+      button {
+        height: 85px;
+        font-size: 26px;
+      }
+    }
   }
 `;

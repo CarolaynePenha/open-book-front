@@ -134,7 +134,11 @@ export default function Order() {
               item.quantity = 1;
             }
             totalQuantity += parseInt(item.quantity);
-            totalPrice += item.total;
+            if (item.total) {
+              totalPrice += item.total;
+            } else {
+              totalPrice = item.price * item.quantity;
+            }
             return (
               <div className="item">
                 <img src={item.image} />
@@ -204,7 +208,7 @@ const Conteiner = styled.div`
   }
 
   span {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 500;
     margin-top: 15px;
   }
@@ -243,6 +247,50 @@ const Conteiner = styled.div`
     img {
       width: 30%;
       margin-right: 10px;
+    }
+  }
+  @media (min-width: 600px) {
+    span {
+      font-size: 26px;
+    }
+    p {
+      font-size: 22px;
+    }
+    .item {
+      img {
+        width: 25%;
+        margin-right: 10px;
+      }
+    }
+    .infos-order {
+      span {
+        font-size: 22px;
+      }
+    }
+  }
+  @media (min-width: 1000px) {
+    span {
+      font-size: 30px;
+    }
+    p {
+      font-size: 28px;
+    }
+    .item {
+      img {
+        width: 20%;
+        margin-right: 10px;
+      }
+    }
+    .conditions {
+      font-size: 20px;
+    }
+    .infos-order {
+      span {
+        font-size: 28px;
+      }
+    }
+    form button {
+      height: 90px;
     }
   }
 `;
