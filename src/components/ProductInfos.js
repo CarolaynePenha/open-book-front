@@ -37,13 +37,10 @@ export default function Productinfos() {
   function addressNavigate(link) {
     if (token) {
       if (link === "address") {
-        console.log("productInfo", product);
         navigate("/address/buy");
         window.scrollTo(0, 0);
       }
       if (link === "trolley") {
-        console.log("productInfo", product);
-
         const URL = process.env.REACT_APP_API_URL + `/trolley/${id}`;
         const config = {
           headers: {
@@ -54,8 +51,6 @@ export default function Productinfos() {
           quantity: product[0].quantity,
         };
         async function postTrolleyItem() {
-          console.log("body: ", body);
-
           try {
             await axios.post(URL, body, config);
             setChangeHeader(!changeHeader);
@@ -124,7 +119,11 @@ export default function Productinfos() {
         </>
       );
     } else {
-      return <LoadingRing />;
+      return (
+        <Content>
+          <LoadingRing />
+        </Content>
+      );
     }
   }
 
@@ -272,4 +271,11 @@ const Section = styled.section`
       }
     }
   }
+`;
+const Content = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

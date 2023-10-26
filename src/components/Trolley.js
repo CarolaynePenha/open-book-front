@@ -62,7 +62,7 @@ export default function Trolley() {
     }
   }
 
-  async function postTrolleyItem(id) {
+  async function putTrolleyItem(id, quantity) {
     console.log("id: ", id);
     const URL = process.env.REACT_APP_API_URL + `/trolley/${id}`;
     const config = {
@@ -71,11 +71,11 @@ export default function Trolley() {
       },
     };
     const body = {
-      quantity: trolleyState.quantity,
+      quantity,
     };
+    console.log("body: ", body);
     try {
-      console.log("trolleyState: ", trolleyState);
-      await axios.post(URL, body, config);
+      await axios.put(URL, body, config);
       setDeleteState(!deleteState);
       window.scrollTo(0, 0);
     } catch (err) {
@@ -84,7 +84,9 @@ export default function Trolley() {
   }
 
   return trolleyState === null ? (
-    <LoadingRing />
+    <Content>
+      <LoadingRing />
+    </Content>
   ) : trolleyState.length >= 1 ? (
     <>
       <Header changeHeader={changeHeader} />
@@ -94,7 +96,6 @@ export default function Trolley() {
         </div>
 
         {trolleyState.map((trolleyItem, index) => {
-          console.log("trolleyItem: ", trolleyItem);
           const { image, title, seller, price, quantity, total, _id } =
             trolleyItem;
           totalOrder += total;
@@ -111,11 +112,8 @@ export default function Trolley() {
                     required
                     value={quantity}
                     onChange={(e) => {
-                      setTrolleyState({
-                        ...trolleyState,
-                        quantity: e.target.value,
-                      });
-                      postTrolleyItem(_id);
+                      const quantity = e.target.value;
+                      putTrolleyItem(_id, quantity);
                     }}
                   >
                     {quantityOptions.map((value) => {
@@ -205,6 +203,7 @@ const Article = styled.article`
       flex-direction: column;
     }
     .quantity {
+      display: flex;
       select {
         font-size: 16px;
         height: 30px;
@@ -347,4 +346,12 @@ const CarinhoVazio = styled.div`
   p {
     font-size: 22px;
   }
+`;
+
+const Content = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

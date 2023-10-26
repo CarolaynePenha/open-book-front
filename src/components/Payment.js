@@ -43,6 +43,7 @@ export default function Payment() {
             <input
               disabled={buttonState}
               type="radio"
+              name="option"
               value="Cartão de crédito"
               onClick={() => {
                 setPaymentMethod("Cartão de crédito");
@@ -54,6 +55,7 @@ export default function Payment() {
             <input
               disabled={buttonState}
               type="radio"
+              name="option"
               value="Pix"
               onClick={() => {
                 setPaymentMethod("Pix");
@@ -65,6 +67,7 @@ export default function Payment() {
             <input
               disabled={buttonState}
               type="radio"
+              name="option"
               value="Boleto"
               onClick={() => {
                 setPaymentMethod("Boleto");

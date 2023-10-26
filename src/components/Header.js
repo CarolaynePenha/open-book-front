@@ -49,7 +49,9 @@ export default function Header({ changeHeader, setProductsList }) {
   }, [token, changeHeader]);
 
   async function search() {
-    const URL = process.env.REACT_APP_API_URL + `/products/${srcBar}`;
+    console.log("srcBar: ", srcBar);
+    const URL = process.env.REACT_APP_API_URL + `/productsSrc?src=${srcBar}`;
+
     setInputState(true);
     try {
       const { data } = await axios.get(URL);

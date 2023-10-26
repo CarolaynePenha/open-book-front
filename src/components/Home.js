@@ -24,7 +24,9 @@ export default function Home() {
   }, []);
 
   return productsList == null ? (
-    <LoadingRing />
+    <Content>
+      <LoadingRing />
+    </Content>
   ) : (
     <>
       <Header setProductsList={setProductsList} />
@@ -65,4 +67,11 @@ const Conteiner = styled.div`
   @media (min-width: 1200px) {
     justify-content: space-evenly;
   }
+`;
+const Content = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

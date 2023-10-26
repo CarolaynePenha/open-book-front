@@ -37,14 +37,12 @@ export default function Order() {
   };
   useEffect(() => {
     if (path === "trolley") {
-      console.log("entrei");
       const URL = process.env.REACT_APP_API_URL + `/trolley`;
 
       async function getTrolley() {
         try {
           const { data } = await axios.get(URL, config);
           setProduct(data);
-          console.log("product: ", product);
           const stringifyData = JSON.stringify(data);
           localStorage.setItem("product", stringifyData);
         } catch (err) {
@@ -85,7 +83,6 @@ export default function Order() {
         };
       });
 
-      console.log("products: ", products);
       body = { ...body, products: products };
       console.log("body: ", body);
       const URL = process.env.REACT_APP_API_URL + `/order`;
@@ -156,7 +153,7 @@ export default function Order() {
           <div className="infos-product">
             <div className="conditions">
               <small>
-                Ao fazer seu pedido você está condordando com as condições de
+                Ao fazer seu pedido você está concordando com as condições de
                 uso da Open Book.
               </small>
             </div>

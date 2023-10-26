@@ -12,21 +12,21 @@ export default function Orders() {
   const [orders, setOrders] = useState(null);
   const { token, setToken } = useContext(TokenContext);
   const { setUser } = useContext(UserContext);
+  const [page, setPage] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
-      const URL = process.env.REACT_APP_API_URL + `/order`;
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
       async function getOrders() {
+        const URL = process.env.REACT_APP_API_URL + `/order?page=${page}`;
         try {
           const { data } = await axios.get(URL, config);
           setOrders(data);
-          console.log("data: ", data);
         } catch (err) {
           console.log(err.response);
         }
@@ -37,10 +37,12 @@ export default function Orders() {
       setUser("");
       navigate("/signIn");
     }
-  }, [token]);
+  }, [token, page]);
 
   return orders == null ? (
-    <LoadingRing />
+    <Content>
+      <LoadingRing />
+    </Content>
   ) : (
     <>
       <Header />
@@ -73,6 +75,21 @@ export default function Orders() {
             </section>
           );
         })}
+        <div className="page">
+          <ion-icon
+            onClick={() => {
+              if (page >= 1) {
+                setPage(page - 1);
+              }
+            }}
+            name="chevron-back-circle-outline"
+          ></ion-icon>
+          <p>Página {page}</p>
+          <ion-icon
+            onClick={() => setPage(page + 1)}
+            name="chevron-forward-circle-outline"
+          ></ion-icon>
+        </div>
       </Article>
     </>
   );
@@ -120,6 +137,14 @@ const Article = styled.article`
       }
     }
   }
+
+  .page {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 35px;
+    padding: 20px;
+  }
   @media (min-width: 600px) {
     h1 {
       font-size: 26px;
@@ -153,4 +178,11 @@ const Article = styled.article`
       font-size: 26px;
     }
   }
+`;
+const Content = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
