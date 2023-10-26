@@ -66,7 +66,7 @@ export default function Productinfos() {
   }
 
   function returnInfos() {
-    if (product[0]) {
+    if (product?.[0]) {
       const { image, title, description, price, seller, category } = product[0];
       return (
         <>
