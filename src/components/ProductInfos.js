@@ -17,10 +17,9 @@ export default function Productinfos() {
   const { token } = useContext(TokenContext);
   const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [changeHeader, setChangeHeader] = useState(false);
+  const URL = process.env.REACT_APP_API_URL + `/products/${id}`;
 
   useEffect(() => {
-    const URL = process.env.REACT_APP_API_URL + `/products/${id}`;
-
     async function getProduct() {
       try {
         const { data } = await axios.get(URL);
